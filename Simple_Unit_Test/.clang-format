@@ -1,27 +1,29 @@
 # .clang-format
 ---
-Language:                Cpp
-BasedOnStyle:            LLVM
-Standard:                Cpp17
-IndentWidth:             4
-TabWidth:                4
-UseTab:                  Never
+Language:        Cpp
+BasedOnStyle:    LLVM
 
-BreakBeforeBraces:       Allman
-AllowShortIfStatementsOnASingleLine:     false
-AllowShortLoopsOnASingleLine:            false
-AllowShortFunctionsOnASingleLine:        InlineOnly
+# Sangrías y tabulaciones
+IndentWidth:     4
+TabWidth:        4
+UseTab:          Never      # Siempre espacios, nunca tabs
 
-DerivePointerAlignment:  false
-PointerAlignment:        Left
+# Llaves en nueva línea (Allman)
+BreakBeforeBraces: Allman
 
-AlignConsecutiveAssignments:             true
-AlignConsecutiveDeclarations:            true
+# No permitir sentencias cortas en una sola línea
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine:        false
+AllowShortFunctionsOnASingleLine:    InlineOnly
 
-SpaceBeforeParens:       ControlStatements
-StandardConstructorInitializers:         true
+# Punteros pegados al tipo (int *ptr)
+PointerAlignment: Left
 
-SortIncludes:            true
-ReflowComments:          true
+# Alineaciones verticales sencillas
+AlignConsecutiveAssignments: true
 
-ColumnLimit:             100
+# Espacio antes de paréntesis sólo en estructuras de control
+SpaceBeforeParens: ControlStatements
+
+# Límite de ancho de línea
+ColumnLimit:     100
