@@ -5,9 +5,10 @@ on:
     branches: [main, develop, feature/**]
   pull_request:
     branches: [main, develop]     
+
 jobs:
   build-and-test:
-    name: PlatformIO Test (native)
+    name: PlatformIO Test (native) + Clang-Format
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +33,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install platformio
 
+      # ——— Nuevo bloque para clang-format ———
+      - name: Instalar clang-format
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format
+
+      - name: Verificar estilo de código (clang-format)
+        working-directory: ./Simple_Unit_Test
+        run: |
+          find src include test -type f \( -name '.cpp' -o -name '.h' \) -print0 \
+            | xargs -0 clang-format --style=file --dry-run --Werror
+
+      # ————————————————————————————————
+
       - name: Run PlatformIO tests
+        working-directory: ./Simple_Unit_Test
         run: |
           pio test -e native -v
