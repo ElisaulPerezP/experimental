@@ -42,9 +42,8 @@ jobs:
       - name: Verificar estilo de código (clang-format)
         working-directory: ./Simple_Unit_Test
         run: |
-          find src include test -type f \( -name '.cpp' -o -name '.h' \) -print0 \
-            | xargs -0 clang-format --style=file --dry-run --Werror
-
+          find src include test -type f \( -name '*.cpp' -o -name '*.h' \) -print0 \
+              | xargs -0 clang-format --style=file --dry-run --Werror
       # ————————————————————————————————
 
       - name: Run PlatformIO tests
