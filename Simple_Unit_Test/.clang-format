@@ -1,0 +1,27 @@
+# .clang-format
+---
+Language:                Cpp
+BasedOnStyle:            LLVM
+Standard:                Cpp17
+IndentWidth:             4
+TabWidth:                4
+UseTab:                  Never
+
+BreakBeforeBraces:       Allman
+AllowShortIfStatementsOnASingleLine:     false
+AllowShortLoopsOnASingleLine:            false
+AllowShortFunctionsOnASingleLine:        InlineOnly
+
+DerivePointerAlignment:  false
+PointerAlignment:        Left
+
+AlignConsecutiveAssignments:             true
+AlignConsecutiveDeclarations:            true
+
+SpaceBeforeParens:       ControlStatements
+StandardConstructorInitializers:         true
+
+SortIncludes:            true
+ReflowComments:          true
+
+ColumnLimit:             100
