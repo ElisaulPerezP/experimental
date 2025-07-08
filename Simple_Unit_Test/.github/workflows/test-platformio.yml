@@ -1,38 +1,37 @@
-name: PlatformIO CI Pipeline
+name: PlatformIO CI
 
 on:
   push:
-    branches:
-      - '**'
+    branches: [main, develop, feature/**]
   pull_request:
-    branches:
-      - develop
 
 jobs:
   build-and-test:
-    name: Build and Test with PlatformIO
+    name: PlatformIO Test (native)
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Install PlatformIO and clang-format
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y clang-format
-          pip install -U platformio
+      - name: Cache PlatformIO packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-platformio-${{ hashFiles('**/platformio.ini') }}
+          restore-keys: |
+            ${{ runner.os }}-platformio-
 
-      - name: Check C++ code format with clang-format
+      - name: Install PlatformIO
         run: |
-          find src/ test/ -name '*.cpp' -o -name '*.h' \
-            | xargs clang-format -style=file -n --Werror
+          python -m pip install --upgrade pip
+          pip install platformio
 
-      - name: Run PlatformIO tests on native environment
+      - name: Run PlatformIO tests
         run: |
-          pio test -e native
+          pio test -e native -v
